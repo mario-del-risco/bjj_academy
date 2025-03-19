@@ -1,0 +1,193 @@
+/* Base Reset and Normalization */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root Variables for Consistent Theming */
+:root {
+    /* Color Palette */
+    --color-primary: #2c3e50;
+    --color-secondary: #34495e;
+    --color-accent: #3498db;
+    --color-background: #ecf0f1;
+    --color-text: #2c3e50;
+    
+    /* Spacing */
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 2rem;
+    
+    /* Typography */
+    --font-size-base: 16px;
+    --font-size-small: 0.875rem;
+    --font-size-large: 1.25rem;
+}
+
+/* Responsive Base Styles */
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    font-size: var(--font-size-base);
+}
+
+/* Container Styles */
+.container {
+    width: 90%; /* Responsive width */
+    max-width: 1200px; /* Maximum width */
+    margin: 0 auto; /* Center horizontally */
+    padding: var(--spacing-medium);
+}
+
+/* Flexible Grid System */
+.grid {
+    display: grid;
+    gap: var(--spacing-medium);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Responsive Typography */
+h1 { 
+    font-size: 2.5rem; 
+    margin-bottom: var(--spacing-medium);
+}
+
+h2 { 
+    font-size: 2rem; 
+    margin-bottom: var(--spacing-medium);
+}
+
+h3 { 
+    font-size: 1.5rem; 
+    margin-bottom: var(--spacing-small);
+}
+
+/* Form Styles */
+.form-control {
+    width: 100%;
+    padding: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+    border: 1px solid var(--color-secondary);
+    border-radius: 4px;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: var(--spacing-small) var(--spacing-medium);
+    background-color: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: darken(var(--color-accent), 10%);
+}
+
+/* Responsive Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* List Styles */
+ul, ol {
+    margin-left: var(--spacing-large);
+    margin-bottom: var(--spacing-medium);
+}
+
+/* Card Component */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+}
+
+/* Flexbox Utilities */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Responsive Visibility */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 95%;
+        padding: var(--spacing-small);
+    }
+
+    .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Accessibility and Print Styles */
+@media print {
+    body {
+        font-size: 12pt;
+        color: black;
+        background: white;
+    }
+}
+
+/* Focus Styles for Accessibility */
+*:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* Scrollbar Styles (Webkit Browsers) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 5px;
+}
+
+/* Additional Utility Classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-small { margin-top: var(--spacing-small); }
+.mt-medium { margin-top: var(--spacing-medium); }
+.mt-large { margin-top: var(--spacing-large); }
+
+.mb-small { margin-bottom: var(--spacing-small); }
+.mb-medium { margin-bottom: var(--spacing-medium); }
+.mb-large { margin-bottom: var(--spacing-large); }

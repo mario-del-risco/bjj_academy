@@ -1,0 +1,60 @@
+{% extends "curriculum/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <h1 class="mb-medium">{{ checkpoint.name }}</h1>
+
+        {% if checkpoint.description %}
+            <div class="mb-medium">
+                <h2 class="mb-small">Description</h2>
+                <p>{{ checkpoint.description }}</p>
+            </div>
+        {% endif %}
+
+        <div class="grid grid-2">
+            {% if starting_techniques %}
+                <div>
+                    <h2 class="mb-small">Techniques Starting from This Position</h2>
+                    <ul>
+                        {% for technique in starting_techniques %}
+                            <li>
+                                <a href="{% url 'curriculum:technique_detail' technique.pk %}" class="text-accent">
+                                    {{ technique.name }}
+                                </a>
+                                {% if technique.belt_level %}
+                                    <span class="text-small">({{ technique.belt_level }} Belt)</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if ending_techniques %}
+                <div>
+                    <h2 class="mb-small">Techniques Ending at This Position</h2>
+                    <ul>
+                        {% for technique in ending_techniques %}
+                            <li>
+                                <a href="{% url 'curriculum:technique_detail' technique.pk %}" class="text-accent">
+                                    {{ technique.name }}
+                                </a>
+                                {% if technique.belt_level %}
+                                    <span class="text-small">({{ technique.belt_level }} Belt)</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-medium">
+            <a href="{% url 'curriculum:technique_list' %}" class="btn">
+                Back to Techniques
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

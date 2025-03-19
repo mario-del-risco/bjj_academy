@@ -1,0 +1,114 @@
+{% extends "curriculum/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-large">Techniques</h1>
+
+    <!-- Filters -->
+    <div class="mb-medium">
+        <form method="get" class="flex-center">
+            <!-- Category Filter -->
+            <select name="category" class="form-control mr-small">
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category.name }}" 
+                            {% if request.GET.category == category.name %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Belt Level Filter -->
+            <select name="belt_level" class="form-control mr-small">
+                <option value="">All Belt Levels</option>
+                {% for belt_level in belt_levels %}
+                    {% if belt_level %}
+                        <option value="{{ belt_level }}" 
+                                {% if request.GET.belt_level == belt_level %}selected{% endif %}>
+                            {{ belt_level }}
+                        </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn">Filter</button>
+        </form>
+    </div>
+
+    <!-- Technique List -->
+    <div class="grid grid-3">
+        {% for technique in techniques %}
+            <div class="card">
+                <h2 class="mb-small">
+                    <a href="{% url 'curriculum:technique_detail' technique.pk %}" class="text-decoration-none">
+                        {{ technique.name }}
+                    </a>
+                </h2>
+                
+                <div class="text-small mb-small">
+                    <strong>Category:</strong> {{ technique.category.name }}
+                    {% if technique.belt_level %}
+                        | <strong>Belt Level:</strong> {{ technique.belt_level }}
+                    {% endif %}
+                </div>
+
+                <div class="text-small mb-small">
+                    {% if technique.init_checkpoint %}
+                        <strong>Starting Position:</strong> 
+                        <a href="{% url 'curriculum:checkpoint_detail' technique.init_checkpoint.pk %}" class="text-accent">
+                            {{ technique.init_checkpoint.name }}
+                        </a>
+                    {% endif %}
+                    
+                    {% if technique.out_checkpoint %}
+                        | <strong>Ending Position:</strong> 
+                        <a href="{% url 'curriculum:checkpoint_detail' technique.out_checkpoint.pk %}" class="text-accent">
+                            {{ technique.out_checkpoint.name }}
+                        </a>
+                    {% endif %}
+                </div>
+
+                {% if technique.description %}
+                    <p class="text-small">
+                        {{ technique.description|truncatewords:20 }}
+                    </p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p class="text-center">No techniques found.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <div class="flex-center mt-medium">
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.belt_level %}&belt_level={{ request.GET.belt_level }}{% endif %}" 
+                       class="btn mr-small">
+                        Previous
+                    </a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="btn btn-active">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.belt_level %}&belt_level={{ request.GET.belt_level }}{% endif %}" 
+                           class="btn mr-small">
+                            {{ num }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.belt_level %}&belt_level={{ request.GET.belt_level }}{% endif %}" 
+                       class="btn">
+                        Next
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

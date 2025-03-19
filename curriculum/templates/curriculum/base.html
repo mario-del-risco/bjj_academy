@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Curriculum{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    <!-- Additional CSS Blocks for specific pages -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="container flex-between">
+        <div class="logo">
+            <a href="{% url 'curriculum:technique_list' %}">Curriculum</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'curriculum:technique_list' %}">Techniques</a></li>
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="container text-center mt-large">
+        <p>&copy; {% now "Y" %} Your Curriculum. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Files -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
